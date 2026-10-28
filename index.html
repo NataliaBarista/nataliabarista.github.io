@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Natalia</title>
+<meta name="theme-color" content="#4a3f9f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Natalia">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<script src="config.js"></script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>try{if(localStorage.getItem('nt_ok')==='1')document.documentElement.setAttribute('data-ok','')}catch(e){}</script>
+<style>
+html:not([data-ok]) header,html:not([data-ok]) main,html:not([data-ok]) .bar,html:not([data-ok]) .modal{display:none}
+html[data-ok] #lock{display:none}
+#lock{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#4a3f9f;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px}
+#lock .box{background:var(--card);border-radius:16px;padding:24px;max-width:360px;width:100%;text-align:center}
+#lock img{width:64px;height:64px;border-radius:14px}
+#lock h1{margin:10px 0 2px;font-size:24px}
+#lock p{color:var(--mute);margin:6px 0 16px;font-size:15px}
+#lock input{text-align:center;margin-bottom:12px}
+</style>
+<style>
+:root{--bg:#f6f5fb;--card:#fff;--ink:#1b1a33;--mute:#66658a;--line:#dcd9ee;--teal:#4a3f9f;--teal-d:#372f7d;--teal-l:#ebe8fa;--amber:#b9770e;--amber-l:#fdf1dc;--ok:#1d7a4a;
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#100f1f;--card:#191830;--ink:#ecebf7;--mute:#a4a3c0;--line:#34305a;--teal:#a79df0;--teal-d:#c9c2f7;--teal-l:#2a2652;--amber:#e8b04a;--amber-l:#33280f;--ok:#58c58a}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{margin:0;font:16px/1.4 var(--sans);color:var(--ink);background:var(--bg);padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+header{background:#4a3f9f;color:#fff;padding:calc(18px + env(safe-area-inset-top)) 16px 20px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
+.hd{position:relative;z-index:1;max-width:560px;margin:0 auto;display:flex;gap:14px;align-items:center}
+.hd img{width:52px;height:52px;border-radius:12px;border:2px solid rgba(255,255,255,.35)}
+h1{margin:0;font-size:24px;letter-spacing:-.3px}
+.sub{font:12px var(--mono);letter-spacing:.8px;text-transform:uppercase;opacity:.85;margin-top:2px}
+main{max-width:560px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.step{font:12px var(--mono);letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:10px;display:flex;justify-content:space-between}
+.step b{color:var(--mute);font-weight:500}
+label.l{display:block;font-weight:600;font-size:14px;margin:18px 0 8px}
+#name-l{margin-top:0!important}
+label.l small{font-weight:400;color:var(--mute)}
+input[type=text],input[type=time],textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:12px;min-height:46px}
+input:focus,textarea:focus{outline:none;border-color:var(--teal)}
+textarea{resize:vertical;min-height:70px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt span{display:flex;flex-direction:column;justify-content:center;min-height:50px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);font-weight:600;font-size:15px;transition:.12s}
+.opt span em{font:normal 12px var(--sans);color:var(--mute);font-weight:400}
+.opt input:checked+span{border-color:var(--teal);background:var(--teal-l);box-shadow:inset 0 0 0 1px var(--teal)}
+.opt input:focus-visible+span{outline:3px solid var(--teal);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .opt span{min-height:40px;padding:8px 14px;border-radius:999px;font-weight:500;font-size:14px;flex-direction:row;align-items:center}
+.drink span{min-height:64px}
+.hide{display:none!important}
+.notice{background:var(--amber-l);border:1.5px solid var(--amber);color:var(--ink);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-weight:600;font-size:15px}
+.notice:before{content:"NOTE · ";font:600 12px var(--mono);letter-spacing:.08em;color:var(--amber)}
+.opt input:disabled{cursor:not-allowed}
+.opt input:disabled+span{opacity:.45;text-decoration:line-through;background:var(--bg)}
+.opt input:disabled+span:after{content:"out today";font:12px var(--mono);text-decoration:none;display:inline-block;margin-left:8px;color:var(--mute)}
+.drink input:disabled+span:after{margin:2px 0 0}
+details#cust{margin-top:16px;border:1.5px dashed var(--line);border-radius:12px;padding:0 14px 14px}
+details#cust>summary{list-style:none;cursor:pointer;min-height:50px;display:flex;align-items:center;justify-content:space-between;font-weight:700;color:var(--teal)}
+details#cust>summary::-webkit-details-marker{display:none}
+details#cust>summary small{font-weight:400;color:var(--mute);font-size:13px}
+details#cust>summary:after{content:"+";font:600 22px var(--mono);margin-left:10px}
+details#cust[open]>summary:after{content:"−"}
+.when{margin-top:12px;padding:12px;background:var(--amber-l);border-radius:10px;border:1px solid var(--amber)}
+.when .date{font:13px var(--mono);margin-bottom:8px;color:var(--ink)}
+.note{font-size:13px;color:var(--mute);margin-top:8px}
+.stepper{display:flex;align-items:center;gap:12px}
+.stepper button{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-size:22px}
+.stepper output{min-width:28px;text-align:center;font:600 18px var(--mono)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));z-index:5}
+.bar div{max-width:560px;margin:0 auto}
+.send{width:100%;min-height:54px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:700 17px var(--sans);cursor:pointer}
+@media(prefers-color-scheme:dark){.send{color:#17133a}}
+.send:active{background:var(--teal-d)}
+.bar p{margin:6px 0 0;text-align:center;font-size:12px;color:var(--mute)}
+.err{color:#b3261e;font-size:14px;margin:8px 0 0;font-weight:600}
+@media(prefers-color-scheme:dark){.err{color:#ff8a80}}
+.sec{display:flex;justify-content:space-between;align-items:center}
+.ghost{background:none;border:0;color:var(--teal);font:600 14px var(--sans);padding:8px 0;cursor:pointer}
+.hist{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.hist:first-of-type{border-top:0}
+.hist div{font-size:14px}.hist small{color:var(--mute);display:block;font:12px var(--mono)}
+.hist button{border:1.5px solid var(--teal);background:none;color:var(--teal);border-radius:8px;font-weight:600;padding:8px 12px;min-height:40px;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:10;padding:16px}
+.modal>div{background:var(--card);border-radius:16px;padding:20px;max-width:520px;width:100%;margin-bottom:env(safe-area-inset-bottom)}
+.modal pre{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font:13px/1.5 var(--mono);white-space:pre-wrap;margin:10px 0 14px}
+.modal h2{margin:0;font-size:19px}
+.row{display:flex;gap:10px}.row button{flex:1;min-height:48px;border-radius:10px;font:600 15px var(--sans);cursor:pointer;border:1.5px solid var(--teal);background:none;color:var(--teal)}
+.row button.p{background:var(--teal);color:#fff}
+@media(prefers-color-scheme:dark){.row button.p{color:#17133a}}
+.foot{text-align:center;font:12px var(--mono);color:var(--mute);padding:6px 0 0}
+</style>
+</head>
+<body>
+<div id="lock"><form class="box" id="lf" autocomplete="off">
+  <img src="icon.svg" alt=""><h1>Natalia</h1>
+  <p>Enter the office word to continue.</p>
+  <input type="text" id="word" placeholder="Office word" autocapitalize="none" autocorrect="off" spellcheck="false" aria-label="Office word">
+  <button class="send" type="submit">Unlock</button>
+  <div class="err hide" id="lerr" role="alert">That's not it. Ask Natalia!</div>
+</form></div>
+<header><div class="hd"><img src="icon.svg" alt=""><div><h1>Natalia</h1><div class="sub">Lab Café · Order Requisition</div></div></div></header>
+<main>
+<div class="notice hide" id="notice" role="status"></div>
+<form id="f" autocomplete="off" novalidate>
+
+<section class="card" id="histCard" hidden>
+  <div class="sec"><div class="step" style="margin:0">Previous protocols</div><button type="button" class="ghost" id="clr">Clear</button></div>
+  <div id="hist"></div>
+</section>
+
+<section class="card">
+  <div class="step"><span>01 · Requester</span></div>
+  <label class="l" id="name-l" for="name">Your name</label>
+  <input type="text" id="name" placeholder="e.g. Dr. Rivera" autocapitalize="words" required>
+</section>
+
+<section class="card">
+  <div class="step"><span>02 · Selection</span><b>from the machine dial</b></div>
+  <div class="grid" id="drinks">
+    <label class="opt drink"><input type="radio" name="drink" value="Espresso" checked><span>Espresso<em>Concentrated, 1 or 2 shots</em></span></label>
+    <label class="opt drink"><input type="radio" name="drink" value="Americano"><span>Americano<em>Espresso + hot water</em></span></label>
+    <label class="opt drink"><input type="radio" name="drink" value="Cold Brew"><span>Cold Brew<em>Smooth, served cold</em></span></label>
+    <label class="opt drink"><input type="radio" name="drink" value="Hot Water"><span>Hot Water<em>Tea, instant coffee, cocoa</em></span></label>
+  </div>
+
+  <div id="coffeeOpts">
+    <div id="shotsWrap">
+      <label class="l">Shots</label>
+      <div class="grid"><label class="opt"><input type="radio" name="shots" value="Single" checked><span>Single</span></label><label class="opt"><input type="radio" name="shots" value="Double"><span>Double</span></label></div>
+    </div>
+    <label class="l">Strength <small>(grinder dose level)</small></label>
+    <div class="chips" id="str">
+      <label class="opt"><input type="radio" name="str" value="Mild"><span>Mild</span></label>
+      <label class="opt"><input type="radio" name="str" value="Medium" checked><span>Medium</span></label>
+      <label class="opt"><input type="radio" name="str" value="Strong"><span>Strong</span></label>
+    </div>
+    <label class="l">Beans</label>
+    <div class="chips">
+      <label class="opt"><input type="radio" name="beans" value="Regular" checked><span>Regular</span></label>
+      <label class="opt"><input type="radio" name="beans" value="Decaf (if available)"><span>Decaf (if available)</span></label>
+    </div>
+  </div>
+
+  <div id="hotWaterOpts" class="hide">
+    <label class="l">What's it for? <small>(optional)</small></label>
+    <input type="text" id="hwFor" placeholder="Tea, instant coffee, cocoa…">
+  </div>
+
+  <details id="cust"><summary>Customize <small id="cnt">milk, syrup, sugar, notes</small></summary>
+  <div id="extras">
+    <label class="l">Steamed milk <small>(steam wand)</small></label>
+    <div class="chips">
+      <label class="opt"><input type="radio" name="milk" value="None" checked><span>None</span></label>
+      <label class="opt"><input type="radio" name="milk" value="Steamed milk"><span>Steamed milk</span></label>
+      <label class="opt"><input type="radio" name="milk" value="Splash of milk"><span>Splash of milk</span></label>
+    </div>
+    <label class="l">Torani syrup <small>(pumps)</small></label>
+    <div class="stepper"><button type="button" id="m" aria-label="fewer">−</button><output id="pumps">0</output><button type="button" id="p" aria-label="more">+</button></div>
+    <div id="flavorWrap" class="hide" style="margin-top:10px"><input type="text" id="flavor" placeholder="Flavor (vanilla, caramel…)"></div>
+    <label class="l">Sugar <small>(packets)</small></label>
+    <div class="chips">
+      <label class="opt"><input type="radio" name="sugar" value="0" checked><span>0</span></label>
+      <label class="opt"><input type="radio" name="sugar" value="1"><span>1</span></label>
+      <label class="opt"><input type="radio" name="sugar" value="2"><span>2</span></label>
+      <label class="opt"><input type="radio" name="sugar" value="3"><span>3</span></label>
+    </div>
+  </div>
+  <label class="l" for="notes">Notes <small>(optional)</small></label>
+  <textarea id="notes" placeholder="Anything else Natalia should know"></textarea>
+  </details>
+</section>
+
+<section class="card">
+  <div class="step"><span>03 · Timing</span></div>
+  <div class="grid">
+    <label class="opt"><input type="radio" name="when" value="asap" checked><span>ASAP<em>Right now</em></span></label>
+    <label class="opt"><input type="radio" name="when" value="later"><span>Tomorrow<em>Pick a time</em></span></label>
+  </div>
+  <div id="whenBox" class="when hide">
+    <div class="date" id="tmrw"></div>
+    <label class="l" for="time" style="margin-top:0">Ready by</label>
+    <input type="time" id="time" value="08:00">
+  </div>
+</section>
+
+<section class="card">
+  <div class="step"><span>04 · Compensation</span><b>how you're paying</b></div>
+  <div class="chips" id="pay">
+    <label class="opt"><input type="radio" name="pay" value="Tip Jar" checked><span>I'll put money in the Tip Jar</span></label>
+    <label class="opt"><input type="radio" name="pay" value="Cash in person"><span>I'll hand Natalia cash in person</span></label>
+    <label class="opt"><input type="radio" name="pay" value="Supplies"><span>I'll bring supplies</span></label>
+  </div>
+  <div id="suppliesBox" class="hide">
+    <label class="l">Which reagents? <small>(pick any)</small></label>
+    <div class="chips" id="sup"></div>
+    <input type="text" id="supOther" placeholder="Something else…" style="margin-top:10px">
+  </div>
+</section>
+<div class="foot">Sends a text to Natalia · works offline</div>
+</form>
+</main>
+
+<div class="bar"><div>
+  <button class="send" id="send" type="button">Send order to Natalia</button>
+  <p id="msg">Opens a pre-filled text message. Just press Send.</p>
+  <div class="err hide" id="err" role="alert"></div>
+</div></div>
+
+<div class="modal hide" id="modal"><div>
+  <h2>Order ready ☕</h2>
+  <p class="note" style="margin-top:4px">If your messages app didn't open, copy this and text it to Natalia.</p>
+  <pre id="pre"></pre>
+  <div class="row"><button id="copy">Copy text</button><button class="p" id="close">Done</button></div>
+</div></div>
+
+<script>
+const C=Object.assign({phone:'3214195310',word:'labcoffee',notice:'',unavailable:[]},window.CONFIG||{});
+$lf=document.getElementById('lf');
+$lf.onsubmit=e=>{e.preventDefault();
+  if(document.getElementById('word').value.trim().toLowerCase()===String(C.word).trim().toLowerCase()){
+    try{localStorage.setItem('nt_ok','1')}catch(x){}
+    document.documentElement.setAttribute('data-ok','');
+  }else{document.getElementById('lerr').classList.remove('hide');document.getElementById('word').select()}
+};
+const SUPPLIES=['Coffee beans','Milk or creamer','Torani syrup','Cups & lids','Stir sticks','Spoons','Sugar','Napkins','Descaling tablets'];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const val=n=>{const e=document.querySelector(`input[name=${n}]:checked`);return e?e.value:''};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+$('#sup').innerHTML=SUPPLIES.map(s=>`<label class="opt"><input type="checkbox" value="${s}"><span>${s}</span></label>`).join('');
+
+let pumps=0;
+function sync(){
+  const d=val('drink'), hot=d==='Hot Water', cold=d==='Cold Brew', esp=d==='Espresso'||d==='Americano';
+  $('#coffeeOpts').classList.toggle('hide',hot);
+  $('#hotWaterOpts').classList.toggle('hide',!hot);
+  $('#shotsWrap').classList.toggle('hide',!esp);
+  $('#whenBox').classList.toggle('hide',val('when')!=='later');
+  $('#suppliesBox').classList.toggle('hide',val('pay')!=='Supplies');
+  $('#pumps').textContent=pumps;
+  $('#flavorWrap').classList.toggle('hide',pumps===0);
+  const n=(val('milk')!=='None'?1:0)+(pumps>0?1:0)+(val('sugar')!=='0'?1:0)+($('#notes').value.trim()?1:0);
+  $('#cnt').textContent=n?n+' added':'milk, syrup, sugar, notes';
+}
+document.addEventListener('change',sync);$('#notes').addEventListener('input',sync);
+$('#p').onclick=()=>{pumps=Math.min(4,pumps+1);sync()};
+$('#m').onclick=()=>{pumps=Math.max(0,pumps-1);sync()};
+
+function tomorrow(){const t=new Date();t.setDate(t.getDate()+1);return t}
+function fmtDate(d){return d.toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'})}
+function fmtTime(v){const[h,m]=v.split(':').map(Number);const d=new Date();d.setHours(h,m);return d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}
+function refreshDate(){$('#tmrw').textContent='Tomorrow · '+fmtDate(tomorrow())}
+
+function gather(){
+  const d=val('drink'), o={name:$('#name').value.trim(),drink:d,when:val('when'),time:$('#time').value,pay:val('pay'),notes:$('#notes').value.trim()};
+  if(d==='Hot Water'){o.hwFor=$('#hwFor').value.trim()}
+  else{o.str=val('str');o.beans=val('beans');if(d==='Espresso'||d==='Americano')o.shots=val('shots')}
+  o.milk=val('milk');o.pumps=pumps;o.flavor=$('#flavor').value.trim();o.sugar=val('sugar');
+  if(o.pay==='Supplies'){o.sup=$$('#sup input:checked').map(e=>e.value);const x=$('#supOther').value.trim();if(x)o.sup.push(x)}
+  return o;
+}
+function build(o,stamp){
+  const L=['☕ Natalia order','From: '+o.name];
+  let dr=o.drink; if(o.shots)dr+=` (${o.shots.toLowerCase()} shot)`; L.push('Drink: '+dr);
+  if(o.drink==='Hot Water'){if(o.hwFor)L.push('For: '+o.hwFor)}
+  else{L.push(`Strength: ${o.str}`);if(o.beans!=='Regular')L.push('Beans: '+o.beans)}
+  if(o.milk&&o.milk!=='None')L.push('Milk: '+o.milk);
+  if(o.pumps>0)L.push(`Torani: ${o.pumps} pump${o.pumps>1?'s':''}${o.flavor?' '+o.flavor:''}`);
+  if(o.sugar!=='0')L.push('Sugar: '+o.sugar);
+  L.push('When: '+(o.when==='asap'?'ASAP':`Tomorrow (${fmtDate(tomorrow())}) at ${fmtTime(o.time)}`));
+  L.push('Paying: '+(o.pay==='Supplies'?'Bringing '+(o.sup.length?o.sup.join(', '):'supplies'):o.pay));
+  if(o.notes)L.push('Notes: '+o.notes);
+  return L.join('\n');
+}
+function summary(o){let s=o.drink;if(o.shots)s+=' · '+o.shots.toLowerCase();if(o.milk&&o.milk!=='None')s+=' · '+o.milk.toLowerCase();if(o.pumps)s+=` · ${o.pumps}× ${o.flavor||'syrup'}`;return s}
+
+function showErr(t){const e=$('#err');e.textContent=t;e.classList.toggle('hide',!t)}
+$('#send').onclick=()=>{
+  const o=gather();
+  if(!o.name){showErr('Please enter your name first.');$('#name').focus();return}
+  if(o.when==='later'&&!o.time){showErr('Please pick a time for tomorrow.');return}
+  if(o.pay==='Supplies'&&!o.sup.length){showErr('Pick which supplies you are bringing.');return}
+  showErr('');
+  store.set('nt_name',o.name);
+  const h=store.get('nt_hist',[]);h.unshift({o,at:Date.now()});store.set('nt_hist',h.slice(0,5));renderHist();
+  const text=build(o);
+  $('#pre').textContent=text;$('#modal').classList.remove('hide');
+  location.href=`sms:${C.phone}?&body=${encodeURIComponent(text)}`;
+};
+$('#close').onclick=()=>$('#modal').classList.add('hide');
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#pre').textContent);$('#copy').textContent='Copied ✓'}catch(e){const r=document.createRange();r.selectNode($('#pre'));getSelection().removeAllRanges();getSelection().addRange(r);$('#copy').textContent='Selected, press copy'}};
+
+function renderHist(){
+  const h=store.get('nt_hist',[]);$('#histCard').hidden=!h.length;
+  $('#hist').innerHTML=h.map((x,i)=>`<div class="hist"><div>${summary(x.o)}<small>${new Date(x.at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</small></div><button type="button" data-i="${i}">Order again</button></div>`).join('');
+}
+$('#hist').onclick=e=>{const b=e.target.closest('button');if(!b)return;const o=store.get('nt_hist',[])[b.dataset.i].o;apply(o);scrollTo({top:document.querySelector('#drinks').offsetTop-90,behavior:'smooth'})};
+$('#clr').onclick=()=>{store.set('nt_hist',[]);renderHist()};
+function setRadio(n,v){const e=document.querySelector(`input[name=${n}][value="${v}"]`);if(e)e.checked=true}
+function apply(o){
+  setRadio('drink',o.drink);if(o.shots)setRadio('shots',o.shots);if(o.str)setRadio('str',o.str);if(o.beans)setRadio('beans',o.beans);
+  setRadio('milk',o.milk);setRadio('sugar',o.sugar);pumps=o.pumps||0;$('#flavor').value=o.flavor||'';$('#hwFor').value=o.hwFor||'';$('#notes').value=o.notes||'';
+  setRadio('when','asap');setRadio('pay',o.pay==='Supplies'?'Supplies':o.pay);sync();
+}
+if(C.notice){$('#notice').textContent=C.notice;$('#notice').classList.remove('hide')}
+const out=(C.unavailable||[]).map(x=>String(x).trim().toLowerCase());
+$$('input[type=radio],input[type=checkbox]').forEach(i=>{if(out.includes(i.value.trim().toLowerCase())){i.disabled=true;i.checked=false}});
+['drink','shots','str','beans','milk','sugar','when','pay'].forEach(n=>{const r=$$(`input[name=${n}]`);if(r.length&&!r.some(x=>x.checked)){const f=r.find(x=>!x.disabled);if(f)f.checked=true}});
+$('#name').value=store.get('nt_name','');
+refreshDate();renderHist();sync();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshDate()});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
